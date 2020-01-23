@@ -172,9 +172,11 @@ import (
 
 	r, err := salpem.NewPEMCrypto(&salpem.PEM{
 		PublicCertFile: "certs/client.crt",
-		RootCAs:        caCertPool,
 		PublicPEMFile:  "certs/client.pem",
-		PrivatePEMFile: "certs/client.key",
+        PrivatePEMFile: "certs/client.key",
+		ExtTLSConfig: &tls.Config{
+			RootCAs:        caCertPool,
+		},        
 	})
 ```
 
@@ -239,7 +241,9 @@ import (
 		TpmHandle: 0x81010002,
 
 		PublicCertFile: "certs/client.crt",
-		RootCAs:        caCertPool,
+		ExtTLSConfig: &tls.Config{
+			RootCAs:        caCertPool,
+		},
 	})
 ```
 
@@ -279,7 +283,9 @@ import (
 		KeyRing:       "mycacerts",
 		Key:           "client",
 		KeyVersion:    "2",
-		RootCAs:       caCertPool,
+		ExtTLSConfig: &tls.Config{
+			RootCAs:        caCertPool,
+		},
 	})
 ```
 

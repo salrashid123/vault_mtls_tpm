@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"crypto/x509"
 	"fmt"
 	"io/ioutil"
@@ -21,9 +22,11 @@ func main() {
 
 	r, err := salpem.NewPEMCrypto(&salpem.PEM{
 		PublicCertFile: "certs/client.crt",
-		RootCAs:        caCertPool,
 		PublicPEMFile:  "certs/client.pem",
 		PrivatePEMFile: "certs/client.key",
+		ExtTLSConfig: &tls.Config{
+			RootCAs: caCertPool,
+		},
 	})
 
 	// r, err := salkms.NewKMSCrypto(&salkms.KMS{
@@ -33,7 +36,9 @@ func main() {
 	// 	KeyRing:       "mycacerts",
 	// 	Key:           "client",
 	// 	KeyVersion:    "2",
-	// 	RootCAs:       caCertPool,
+	//  ExtTLSConfig: &tls.Config{
+	//  	RootCAs:        caCertPool,
+	//},
 	// })
 
 	// r, err := saltpm.NewTPMCrypto(&saltpm.TPM{
@@ -41,7 +46,9 @@ func main() {
 	// 	TpmHandle: 0x81010002,
 
 	// 	PublicCertFile: "certs/client.crt",
+	// ExtTLSConfig: &tls.Config{
 	// 	RootCAs:        caCertPool,
+	// },
 	// })
 
 	if err != nil {
