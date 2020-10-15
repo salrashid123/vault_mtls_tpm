@@ -26,6 +26,10 @@ This article is divided into several steps:
    - Access Vault using KMS key to sign the mTLS session.
 
 
+>> IMPORTANT: you must use at MOST go1.13 since versions beyond that uses RSA-PSS (ref [32425](https://github.com/golang/go/issues/32425)) and at least KMS 
+and TPM only support RSA
+
+
 >> Note: I'm not covering techniques to scale or productionize any of this...this is just a POC showing this is possible and is NOT supported by google.  _caveat emptor_
 
 If you are interested in this, another variation of using an embedded certificate can be found here:
