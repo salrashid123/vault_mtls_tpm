@@ -123,11 +123,11 @@ $ vault  operator unseal
 Enable various other secrets engines and cert auth
 
 ```
-$ vault secrets enable -version=2  -path=kv kv
-$ vault secrets enable transit
-
-$ vault policy write hcl/secrets-policy  hcl/secrets_policy.hcl
-$ vault write -f transit/keys/foo
+vault secrets enable -version=2  -path=kv kv
+vault secrets enable transit
+vault policy write token-policy  hcl/token_policy.hcl
+vault policy write secrets-policy  hcl/secrets_policy.hcl
+vault write -f transit/keys/foo
 ```
 
 For [Vautl Cert Auth](https://www.vaultproject.io/docs/auth/cert.html)
@@ -155,6 +155,16 @@ curl \
 
 You should see an entry for the VAULT Token..yeah!
 
+Now use it
+
+```
+export VAULT_ADDR='https://localhost:8200'
+export VAULT_CACERT=certs/CA_crt.pem
+export VAULT_TOKEN=...
+
+vault kv put kv/message foo=world
+vault kv get kv/message
+```
 
 #### PEM (optional)
 
